@@ -1,0 +1,37 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  padding: 10px;
+  background: lightblue;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  .sidebarLogo {
+    margin-bottom: 20px;
+  }
+
+  .sidebarItem {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    color: black;
+
+    &.active {
+      background: white;
+      color: dodgerblue;
+    }
+
+    &:hover {
+      background: lightsteelblue;
+    }
+  }
+}

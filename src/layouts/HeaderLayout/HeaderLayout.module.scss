@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 80px;
+
+  padding: 20px;
+  background-color: rgb(199, 199, 199);
+
+  .headerTitle {
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+  .headerAccount {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+}
