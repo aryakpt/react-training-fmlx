@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import { SidebarItems } from "../../interfaces";
+import { SidebarItems } from "../../common/interfaces";
 import styles from "./SidebarLayout.module.scss";
 import { Link } from "react-router-dom";
-import useFirstPath from "../../hooks/useFirstPath";
+import useFirstPath from "../../common/hooks/useFirstPath";
 import { getFirstPathname } from "../../libs";
 
 import FormulatrixLogo from "../../assets/images/logo.webp";

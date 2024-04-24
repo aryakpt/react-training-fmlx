@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import SidebarLayout from "../SidebarLayout/SidebarLayout";
-import { sidebarItems } from "../../constants";
+import { sidebarItems } from "../../common/constants";
 import HeaderLayout from "../HeaderLayout/HeaderLayout";
 
 import styles from "./MainLayout.module.scss";
-import useFirstPath from "../../hooks/useFirstPath";
+import useFirstPath from "../../common/hooks/useFirstPath";
 
 interface MainLayoutProps {
   children: ReactNode;
