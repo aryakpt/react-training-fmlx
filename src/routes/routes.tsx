@@ -1,12 +1,12 @@
-import { lazy, useEffect } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { useEffect } from "react";
 import { Outlet, Route, createRoutesFromElements } from "react-router-dom";
 import Login from "../contents/auth/pages/Login";
 import MainLayout from "../layouts/MainLayout/MainLayout";
 import { paths } from "./paths";
 import PrivatePage from "../contents/auth/pages/PrivatePage";
-
-const Dashboard = lazy(() => import("../contents/Dashboard"));
-const Posts = lazy(() => import("../contents/Posts"));
+import Dashboard from "src/contents/Dashboard";
+import Posts from "src/contents/Posts";
 
 const ErrorElement = () => <div>Something Wrong Happened!s</div>;
 

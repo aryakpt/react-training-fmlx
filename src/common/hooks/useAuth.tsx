@@ -1,26 +1,9 @@
-import { useEffect, useState } from "react";
+import { AUTH_LOCAL_NAME } from "../constants";
+import { UserLocalStorage } from "../interfaces";
 
-interface UserLocalStorage {
-  username: string;
-  name: string;
-}
-
-const AUTH_LOCAL_NAME = "fmlx_auth";
-
-const useAuth = () => {
-  const [user, setUser] = useState<UserLocalStorage | undefined>(undefined);
-
-  const getUserFromLocalStorage = () => {
-    const user = localStorage.getItem(AUTH_LOCAL_NAME);
-    if (user) setUser(JSON.parse(user));
-    return setUser(undefined);
-  };
-
-  useEffect(() => {
-    getUserFromLocalStorage();
-  }, []);
-
-  return { user };
+const useAuth = (): { user: UserLocalStorage } => {
+  const user = localStorage.getItem(AUTH_LOCAL_NAME);
+  return { user: user ? JSON.parse(user) : undefined };
 };
 
 export default useAuth;
