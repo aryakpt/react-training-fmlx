@@ -6,7 +6,7 @@ import MainLayout from "../layouts/MainLayout/MainLayout";
 import { paths } from "./paths";
 import PrivatePage from "../contents/auth/pages/PrivatePage";
 import Dashboard from "src/contents/Dashboard";
-import Posts from "src/contents/Posts";
+import PostList from "src/contents/posts/pages/List";
 
 const ErrorElement = () => <div>Something Wrong Happened!s</div>;
 
@@ -36,7 +36,7 @@ export const routes = createRoutesFromElements(
       />
       <Route
         path={paths.posts}
-        element={<Posts />}
+        element={<PostList />}
         errorElement={<ErrorElement />}
       />
       <Route path="*" element={<Reload />} />
