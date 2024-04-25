@@ -9,6 +9,10 @@ import useAuth from "src/common/hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { authActions } from "src/contents/auth/store";
 import { userDummy } from "src/contents/auth/constants";
+import { useSelector } from "react-redux";
+import { AppState } from "src/common/store/store";
+import { LoadingState } from "src/common/store/loadingReducer";
+import { LoadingModal } from "src/components";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -20,6 +24,10 @@ const MainLayout = (props: MainLayoutProps) => {
 
   const firstPathname = useFirstPath();
   const currUser = useAuth();
+
+  const { isLoading } = useSelector<AppState, LoadingState>(
+    (state) => state.loadingReducer,
+  );
 
   // handle when the page refreshed
   useEffect(() => {
@@ -36,7 +44,10 @@ const MainLayout = (props: MainLayoutProps) => {
               ?.title ?? ""
           }
         />
-        <main>{children}</main>
+        <main>
+          <LoadingModal isOpen={isLoading} />
+          {children}
+        </main>
       </div>
     </div>
   );
