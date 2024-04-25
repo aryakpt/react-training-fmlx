@@ -1,10 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import SidebarLayout from "../SidebarLayout/SidebarLayout";
 import { sidebarItems } from "../../common/constants";
 import HeaderLayout from "../HeaderLayout/HeaderLayout";
 
 import styles from "./MainLayout.module.scss";
 import useFirstPath from "../../common/hooks/useFirstPath";
+import useAuth from "src/common/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { authActions } from "src/contents/auth/store";
+import { userDummy } from "src/contents/auth/constants";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -12,8 +16,15 @@ interface MainLayoutProps {
 
 const MainLayout = (props: MainLayoutProps) => {
   const { children } = props;
+  const dispatch = useDispatch();
 
   const firstPathname = useFirstPath();
+  const currUser = useAuth();
+
+  // handle when the page refreshed
+  useEffect(() => {
+    if (currUser) dispatch(authActions.setCurrentUser(userDummy));
+  });
 
   return (
     <div className={styles.wrapper}>

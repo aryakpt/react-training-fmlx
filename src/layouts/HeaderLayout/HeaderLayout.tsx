@@ -3,6 +3,9 @@ import { Avatar, Button } from "../../components";
 import styles from "./HeaderLayout.module.scss";
 import { useNavigate } from "react-router-dom";
 import { paths } from "src/routes/paths";
+import { useSelector } from "react-redux";
+import { AppState } from "src/store/store";
+import { AuthState } from "src/contents/auth/store";
 
 interface HeaderLayoutProps {
   title: string;
@@ -11,6 +14,11 @@ interface HeaderLayoutProps {
 const HeaderLayout = (props: HeaderLayoutProps) => {
   const navigate = useNavigate();
   const { title } = props;
+
+  const { user } = useSelector<AppState, AuthState>(
+    (state) => state.authReducer,
+  );
+
   return (
     <header className={styles.header}>
       <h1 className={styles.headerTitle}>{title}</h1>
@@ -26,7 +34,7 @@ const HeaderLayout = (props: HeaderLayoutProps) => {
           Logout
         </Button>
         &nbsp;
-        <Avatar />
+        <Avatar name={user.name} image={user.avatar} />
       </div>
     </header>
   );

@@ -3,31 +3,40 @@ import styles from "./Login.module.scss";
 import FormulatrixLogo from "src/assets/images/logo.webp";
 import { AUTH_LOCAL_NAME } from "src/common/constants";
 import { useState } from "react";
-import { userDummy } from "src/common/constants/userDummy";
 import { UserLocalStorage } from "src/common/interfaces";
 import { useRedirectIfLoggedIn } from "src/common/hooks/useRedirectIfLoggedIn";
 import { paths } from "src/routes/paths";
 import { useNavigate } from "react-router-dom";
+import { userDummy } from "../../constants";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/authActions";
 
 const Login = () => {
   useRedirectIfLoggedIn(paths.dashboard);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [form, setForm] = useState({ username: "", password: "" });
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Illustration validation from BE
     const isExist =
       userDummy.username === form.username &&
       userDummy.password === form.password;
+
+    // illustration response from BE about the data from user
+    const user = userDummy;
     if (isExist) {
       const data: UserLocalStorage = {
-        name: userDummy.name,
-        username: userDummy.username,
+        name: user.name,
+        username: user.username,
       };
+      dispatch(authActions.setCurrentUser(user));
       localStorage.setItem(AUTH_LOCAL_NAME, JSON.stringify(data));
       navigate(paths.dashboard, { replace: true });
     }
-    return;
   };
 
   return (

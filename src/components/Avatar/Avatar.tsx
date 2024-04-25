@@ -1,9 +1,22 @@
 import styles from "./Avatar.module.scss";
 
-const Avatar = () => {
+interface AvatarProps {
+  name?: string;
+  image?: string;
+}
+const Avatar = (props: AvatarProps) => {
+  const { name, image } = props;
+
   return (
     <div className={styles.avatar}>
-      AA{/* {imageUrl ? <img src={imageUrl} alt="avatar" /> : <div>A</div>} */}
+      {image ? (
+        <img src={image} alt="avatar" />
+      ) : (
+        name
+          ?.split(" ")
+          .map((e) => e[0]?.toUpperCase())
+          .join("")
+      )}
     </div>
   );
 };
