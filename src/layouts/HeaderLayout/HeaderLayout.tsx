@@ -4,7 +4,7 @@ import styles from "./HeaderLayout.module.scss";
 import { useNavigate } from "react-router-dom";
 import { paths } from "src/routes/paths";
 import { useSelector } from "react-redux";
-import { AppState } from "src/store/store";
+import { AppState } from "src/common/store/store";
 import { AuthState } from "src/contents/auth/store";
 
 interface HeaderLayoutProps {

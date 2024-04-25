@@ -3,7 +3,7 @@ import { SidebarItems } from "../../common/interfaces";
 import styles from "./SidebarLayout.module.scss";
 import { Link } from "react-router-dom";
 import useFirstPath from "../../common/hooks/useFirstPath";
-import { getFirstPathname } from "../../libs";
+import { getFirstPathname } from "../../common/libs";
 
 import FormulatrixLogo from "../../assets/images/logo.webp";
 
