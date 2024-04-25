@@ -1,16 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosResponse } from "axios";
 import { setupAxios } from "src/common/libs";
-import { PostListItemSchema } from "./schemas";
+import { CommentListItemSchema, PostListItemSchema } from "./schemas";
 
 const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
+  baseURL: "https://jsonplaceholder.typicode.com/posts",
 });
 
 setupAxios(axiosInstance);
 
 export const postsApiClient = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getPosts(): Promise<AxiosResponse<PostListItemSchema[], any>> {
-    return axiosInstance.get("/posts");
+    return axiosInstance.get("/");
+  },
+
+  getCommentsPost(
+    postId: number,
+  ): Promise<AxiosResponse<CommentListItemSchema[], any>> {
+    return axiosInstance.get(`/${postId}/comments`);
   },
 };

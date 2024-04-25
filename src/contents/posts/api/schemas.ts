@@ -4,3 +4,10 @@ export interface PostListItemSchema {
   title: string;
   body: string;
 }
+export interface CommentListItemSchema {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}

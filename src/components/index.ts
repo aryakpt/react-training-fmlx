@@ -5,3 +5,4 @@ export {
   default as LoadingModal,
   type LoadingModalProps,
 } from "./Modal/LoadingModal/LoadingModal";
+export { default as Table } from "./Table/Table";

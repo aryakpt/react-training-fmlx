@@ -5,5 +5,5 @@ export const userDummy: User = {
   password: "admin123",
   name: "Admin",
   city: "Semarang",
-  avatar: "https://www.alucare.fr/wp-content/uploads/2023/08/Naruto-scaled.jpg",
+  avatar: "",
 };

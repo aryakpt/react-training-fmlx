@@ -71,7 +71,7 @@ const Login = () => {
               }
             />
             <Button
-              variety="primary"
+              variety="secondary"
               type="submit"
               className={styles.loginCardFormButton}
             >
