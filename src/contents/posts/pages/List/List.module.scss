@@ -1,0 +1,14 @@
+.post {
+  display: flex;
+  gap: 24px;
+
+  .postList,
+  .commentList {
+    width: 50%;
+  }
+
+  .postList {
+    height: 88vh;
+    overflow-y: scroll;
+  }
+}

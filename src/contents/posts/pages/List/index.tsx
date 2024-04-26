@@ -1,60 +1,62 @@
-import { useEffect, useState } from "react";
-import { PostListItemSchema, postsApiClient } from "../../api";
-import { useDispatch } from "react-redux";
-import { loadingActions } from "src/common/store/loadingActions";
+import { useEffect } from "react";
+import { CommentListItemSchema, PostListItemSchema } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "src/components";
+import { PostState, postActions } from "../../store";
+import { AppState } from "src/common/store/store";
+
+import styles from "./List.module.scss";
 
 const PostList = () => {
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState<PostListItemSchema[]>([]);
-
-  const fetchPosts = async () => {
-    dispatch(loadingActions.setLoadingTrue());
-    const response = await postsApiClient.getPosts();
-    dispatch(loadingActions.setLoadingFalse());
-    setPosts(response.data);
-  };
-
-  const fetchComments = async (postId: number) => {
-    dispatch(loadingActions.setLoadingTrue());
-    const response = await postsApiClient.getCommentsPost(postId);
-    console.log(response.data);
-
-    dispatch(loadingActions.setLoadingFalse());
-  };
+  const { posts, comments } = useSelector<AppState, PostState>(
+    (state) => state.postReducer,
+  );
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    dispatch(postActions.getPosts());
+  }, [dispatch]);
 
   return (
-    <div>
-      <Table<PostListItemSchema>
-        columns={[
-          {
-            title: "No",
-            indexName: "no",
-            render(_value, _record, index) {
-              return index;
+    <div className={styles.post}>
+      <div className={styles.postList}>
+        <h3>Post</h3>
+        <Table<PostListItemSchema>
+          columns={[
+            { title: "User Id", indexName: "userId" },
+            { title: "Id", indexName: "id" },
+            { title: "Title", indexName: "title" },
+            {
+              title: "Body",
+              indexName: "body",
+              render(value) {
+                return <p>{value}</p>;
+              },
             },
-          },
-          { title: "User Id", indexName: "userId" },
-          { title: "Id", indexName: "id" },
-          { title: "Title", indexName: "title" },
-          {
-            title: "Body",
-            indexName: "body",
-            render(value) {
-              return <p style={{ backgroundColor: "red" }}>{value}</p>;
+          ]}
+          data={posts}
+          onRowClick={(post) =>
+            dispatch(postActions.getCommentsByPostId(post.id))
+          }
+        />
+      </div>
+      <div className={styles.commentList}>
+        <h3>Comment Post Id: {comments?.[0].postId}</h3>
+        <Table<CommentListItemSchema>
+          columns={[
+            { title: "Name", indexName: "name" },
+            { title: "Email", indexName: "email" },
+            {
+              title: "Body",
+              indexName: "body",
+              render(value) {
+                return <p>{value}</p>;
+              },
             },
-          },
-        ]}
-        data={posts}
-        onRowClick={async (data) => {
-          console.log(data);
-          await fetchComments(data.id);
-        }}
-      />
+          ]}
+          data={comments}
+        />
+      </div>
     </div>
   );
 };
