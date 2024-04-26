@@ -1,4 +1,4 @@
-import { MemoListItemSchema } from "../interfaces";
+import { MemoListItemSchema } from "../../interfaces";
 
 export function createMemo(): MemoListItemSchema[] {
   const memos = [];
@@ -14,7 +14,6 @@ export function createMemo(): MemoListItemSchema[] {
 
 export function filterMemos(memos: MemoListItemSchema[], tab: string) {
   const startTime = performance.now();
-  console.log(startTime);
 
   while (performance.now() - startTime < 500) {
     // Do nothing for 500 ms to emulate extremely slow code
