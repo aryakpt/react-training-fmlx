@@ -7,6 +7,7 @@ import { paths } from "./paths";
 import PrivatePage from "../contents/auth/pages/PrivatePage";
 import Dashboard from "src/contents/Dashboard";
 import PostList from "src/contents/posts/pages/List";
+import Optimization from "src/contents/optimization/pages";
 
 const ErrorElement = () => <div>Something Wrong Happened!s</div>;
 
@@ -37,6 +38,11 @@ export const routes = createRoutesFromElements(
       <Route
         path={paths.posts}
         element={<PostList />}
+        errorElement={<ErrorElement />}
+      />
+      <Route
+        path={paths.optimization}
+        element={<Optimization />}
         errorElement={<ErrorElement />}
       />
       <Route path="*" element={<Reload />} />
