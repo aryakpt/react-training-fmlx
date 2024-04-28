@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import styles from "./Input.module.scss";
 
 export interface InputProps
@@ -11,7 +11,10 @@ export interface InputProps
 const Input = (props: InputProps) => {
   const { label, ...restProps } = props;
   return (
-    <div className={clsx(restProps.className, styles.input)}>
+    <div
+      data-testid="input-component"
+      className={clsx(restProps.className, styles.input)}
+    >
       {label ? (
         <label className={styles.inputLabel} htmlFor={restProps.id}>
           {label}

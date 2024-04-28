@@ -5,7 +5,7 @@ export interface TableProps<T> {
   data: T[];
   columns: {
     title: string;
-    indexName?: string;
+    indexName?: keyof T;
     render?: (
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value: any,
@@ -36,18 +36,17 @@ const Table = <T,>(props: TableProps<T>) => {
             }}
           >
             {columns.map((column, columnIndex) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const value: any =
+                column.indexName != undefined ? record[column.indexName] : null;
               if (column.render) {
                 return (
                   <td key={columnIndex}>
-                    {column.render(
-                      column.indexName ? record[column.indexName] : undefined,
-                      record,
-                      index,
-                    )}
+                    {column.render(value, record, index)}
                   </td>
                 );
               }
-              return <td key={columnIndex}>{record[column.indexName]}</td>;
+              return <td key={columnIndex}>{value}</td>;
             })}
           </tr>
         ))}

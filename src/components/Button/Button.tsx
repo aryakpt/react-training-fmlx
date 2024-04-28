@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import styles from "./Button.module.scss";
 
 export interface ButtonProps
@@ -14,6 +14,7 @@ const Button = (props: ButtonProps) => {
   return (
     <button
       {...restProps}
+      data-testid="button-component"
       className={clsx(restProps.className, styles.button, styles[variety])}
     >
       {restProps.children}
