@@ -1,15 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { thunk } from "redux-thunk";
 
-import { AuthState, authReducer } from "src/contents/auth/store/authReducer";
-import { LoadingState, loadingReducer } from "./loadingReducer";
-import { PostState, postReducer } from "src/contents/posts/store";
-
-export interface AppState {
-  authReducer: AuthState;
-  loadingReducer: LoadingState;
-  postReducer: PostState;
-}
+import { authReducer } from "src/contents/auth/store/authReducer";
+import { loadingReducer } from "./loadingReducer";
+import { postReducer } from "src/contents/posts/store";
 
 // Create the root reducer
 const rootReducer = combineReducers({
@@ -19,7 +13,16 @@ const rootReducer = combineReducers({
 });
 
 // Create a configure store function of type 'AppState'
-export default function configureStore() {
-  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
+export default function configureStore(preloadedState?: Partial<AppState>) {
+  const store = createStore(
+    rootReducer,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    preloadedState as any,
+    applyMiddleware(thunk),
+  );
   return store;
 }
+
+export type AppState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof configureStore>;
+export type AppDispatch = AppStore["dispatch"];

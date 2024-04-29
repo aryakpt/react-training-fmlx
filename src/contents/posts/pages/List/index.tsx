@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { CommentListItemSchema, PostListItemSchema } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "src/components";
@@ -17,12 +17,8 @@ const PostList = () => {
     dispatch(postActions.getPosts());
   }, [dispatch]);
 
-  const getComments = useCallback((id: number) => {
-    dispatch(postActions.getCommentsByPostId(id));
-  }, []);
-
   return (
-    <div className={styles.post}>
+    <div data-testid="post-list-page" className={styles.post}>
       <div className={styles.postList}>
         <h3>Post</h3>
         <Table<PostListItemSchema>
@@ -39,7 +35,9 @@ const PostList = () => {
             },
           ]}
           data={posts}
-          onRowClick={(post) => getComments(post.id)}
+          onRowClick={(post) =>
+            dispatch(postActions.getCommentsByPostId(post.id))
+          }
         />
       </div>
       <div className={styles.commentList}>
