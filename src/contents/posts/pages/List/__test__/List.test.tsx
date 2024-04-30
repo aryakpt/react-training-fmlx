@@ -15,7 +15,15 @@ describe("PostList page unit tests", () => {
               body: "Test Body",
             },
           ],
-          comments: [],
+          comments: [
+            {
+              postId: 0,
+              id: 0,
+              name: "",
+              email: "",
+              body: "",
+            },
+          ],
         },
       },
     });

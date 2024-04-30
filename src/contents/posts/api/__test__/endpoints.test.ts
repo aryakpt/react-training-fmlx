@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import axios from "axios";
-import { PostListItemSchema } from "../schemas";
+import { CommentListItemSchema, PostListItemSchema } from "../schemas";
 import { postsApiClient } from "../endpoints";
 
 jest.mock("axios");
 jest.mock("src/common/libs/axios", () => ({
-  setupAxios: jest.fn(),
+  setupAxios: jest.fn(() => axios as jest.Mocked<typeof axios>),
 }));
 
 describe("postsApiClient", () => {
@@ -29,12 +29,33 @@ describe("postsApiClient", () => {
         },
       ];
       const mockResponse = { data: mockPosts, status: 200 };
+      mockedAxios.get.mockResolvedValueOnce(mockResponse);
+      const response = await postsApiClient.getPosts();
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual(mockPosts);
+    });
+  });
+
+  describe("getCommentsPost", () => {
+    it("should fetch comments successfully", async () => {
+      const mockPostId = 1;
+      const commentsMocks: CommentListItemSchema[] = [
+        {
+          postId: 1,
+          id: 1,
+          name: "Test Title",
+          body: "Test Body",
+          email: "test@gmail.com",
+        },
+      ];
+      const mockResponse = { data: commentsMocks, status: 200 };
 
       mockedAxios.get.mockResolvedValueOnce(mockResponse);
 
-      const response = await postsApiClient.getPosts();
+      const response = await postsApiClient.getCommentsPost(mockPostId);
       expect(response.status).toBe(200);
-      expect(response.data).toEqual(mockPosts);
+      expect(response.data).toEqual(commentsMocks);
     });
   });
 });

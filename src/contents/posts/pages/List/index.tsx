@@ -22,6 +22,7 @@ const PostList = () => {
       <div className={styles.postList}>
         <h3>Post</h3>
         <Table<PostListItemSchema>
+          data-testid="post-list-table"
           columns={[
             { title: "User Id", indexName: "userId" },
             { title: "Id", indexName: "id" },
