@@ -1,45 +1,40 @@
+import "@testing-library/jest-dom";
 import axios from "axios";
-import { postsApiClient } from "../endpoints";
 import { PostListItemSchema } from "../schemas";
+import { postsApiClient } from "../endpoints";
 
-jest.mock("axios", () => {
-  return {
-    create: () => {
-      return {
-        interceptors: {
-          request: { eject: jest.fn(), use: jest.fn() },
-          response: { eject: jest.fn(), use: jest.fn() },
-        },
-      };
-    },
-  };
-});
+jest.mock("axios");
+jest.mock("src/common/libs/axios", () => ({
+  setupAxios: jest.fn(),
+}));
 
 describe("postsApiClient", () => {
-  // let axiosInstance: AxiosInstance;
-  // beforeEach(() => {
-  //   axiosInstance = axios.create({});
-  //   // jest.clearAllMocks();
-  // });
+  let mockedAxios: jest.Mocked<typeof axios>;
+  beforeEach(() => {
+    mockedAxios = axios as jest.Mocked<typeof axios>;
+  });
 
-  it("getPosts should return a succesful response", async () => {
-    const mockPosts: PostListItemSchema[] = [
-      {
-        userId: 1,
-        id: 1,
-        title: "Test Title",
-        body: "Test Body",
-      },
-    ];
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    (axios.get as jest.Mock).mockResolvedValueOnce({
-      status: 200,
-      data: mockPosts,
+  describe("getPosts", () => {
+    it("should fetch posts successfully", async () => {
+      const mockPosts: PostListItemSchema[] = [
+        {
+          userId: 1,
+          id: 1,
+          title: "Test Title",
+          body: "Test Body",
+        },
+      ];
+      const mockResponse = { data: mockPosts, status: 200 };
+
+      mockedAxios.get.mockResolvedValueOnce(mockResponse);
+
+      const response = await postsApiClient.getPosts();
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual(mockPosts);
     });
-
-    const response = await postsApiClient.getPosts();
-
-    expect(response.status).toBe(200);
-    expect(response.data).toEqual(mockPosts);
   });
 });
