@@ -3,4 +3,5 @@ export const paths = {
   dashboard: "/dashboard",
   posts: "/posts",
   optimization: "/optimization",
+  signal: "/signal",
 };

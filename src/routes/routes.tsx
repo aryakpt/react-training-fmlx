@@ -8,6 +8,7 @@ import PrivatePage from "../contents/auth/pages/PrivatePage";
 import Dashboard from "src/contents/Dashboard";
 import PostList from "src/contents/posts/pages/List";
 import Optimization from "src/contents/optimization/pages";
+import Signal from "src/contents/signal/Signal";
 
 const ErrorElement = () => <div>Something Wrong Happened!s</div>;
 
@@ -43,6 +44,11 @@ export const routes = createRoutesFromElements(
       <Route
         path={paths.optimization}
         element={<Optimization />}
+        errorElement={<ErrorElement />}
+      />
+      <Route
+        path={paths.signal}
+        element={<Signal />}
         errorElement={<ErrorElement />}
       />
       <Route path="*" element={<Reload />} />
