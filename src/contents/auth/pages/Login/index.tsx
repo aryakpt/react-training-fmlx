@@ -7,7 +7,7 @@ import { UserLocalStorage } from "src/common/interfaces";
 import { useRedirectIfLoggedIn } from "src/common/hooks/useRedirectIfLoggedIn";
 import { paths } from "src/routes/paths";
 import { useNavigate } from "react-router-dom";
-import { userDummy } from "../../constants";
+import { userDummies } from "../../constants";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/authActions";
 
@@ -22,13 +22,12 @@ const Login = () => {
     e.preventDefault();
 
     // Illustration validation from BE
-    const isExist =
-      userDummy.username === form.username &&
-      userDummy.password === form.password;
+    const user = userDummies.find(
+      (user) =>
+        user.username === form.username && user.password === form.password,
+    );
 
-    // illustration response from BE about the data from user
-    const user = userDummy;
-    if (isExist) {
+    if (user) {
       const data: UserLocalStorage = {
         name: user.name,
         username: user.username,

@@ -1,0 +1,57 @@
+.signal {
+  .roomChat {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow-y: scroll;
+
+    .bubble {
+      border-radius: 1px;
+      list-style: none;
+
+      .bubbleName {
+        font-size: 10px;
+      }
+      .bubbleMessage {
+        padding: 2px 8px;
+        margin-block: 2px;
+        background-color: rgb(219, 245, 255);
+        font-size: 14px;
+        border-radius: 15px;
+        display: inline-block;
+      }
+
+      &.right {
+        justify-self: flex-end;
+        text-align: right;
+        .bubbleName {
+          margin-right: 8px;
+        }
+      }
+
+      &.left {
+        .bubbleMessage {
+          padding: 2px 8px;
+          margin-block: 2px;
+          background-color: blanchedalmond;
+          font-size: 14px;
+          border-radius: 15px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .formMessage {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    > div {
+      width: 80%;
+    }
+    button {
+      width: 20%;
+    }
+  }
+}

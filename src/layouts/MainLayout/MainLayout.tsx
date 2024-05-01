@@ -8,7 +8,7 @@ import useFirstPath from "../../common/hooks/useFirstPath";
 import useAuth from "src/common/hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { authActions } from "src/contents/auth/store";
-import { userDummy } from "src/contents/auth/constants";
+import { userDummies } from "src/contents/auth/constants";
 import { useSelector } from "react-redux";
 import { AppState } from "src/common/store/store";
 import { LoadingState } from "src/common/store/loadingReducer";
@@ -31,8 +31,11 @@ const MainLayout = (props: MainLayoutProps) => {
 
   // handle when the page refreshed
   useEffect(() => {
-    if (currUser) dispatch(authActions.setCurrentUser(userDummy));
-  });
+    const user = userDummies.find(
+      (user) => user.username === currUser.user.username,
+    )!;
+    if (currUser) dispatch(authActions.setCurrentUser(user));
+  }, [currUser, dispatch]);
 
   return (
     <div className={styles.wrapper}>
